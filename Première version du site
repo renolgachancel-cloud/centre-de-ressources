@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centre de Ressources - Documents & Bibliothèque</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Manifest for PWA -->
+    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiQ2VudHJlIGRlIFJlc3NvdXJjZXMiLCJzaG9ydF9uYW1lIjoiUmVzc291cmNlcyIsImRlc2NyaXB0aW9uIjoiQWNjw6lkZXogw6Agdm90cmUgYmlibGlvdGjDqGxlIG51bcOpcmlxdWUgZGUgZG9jdW1lbnRzLCBmaWNoZXMgZXQgbGl2cmVzIiwic3RhcnRfdXJsIjoiLiIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3VuZF9jb2xvciI6IiMyYzNlNTAiLCJ0aGVtZV9jb2xvciI6IiMzNDk4ZGIiLCJvcmllbnRhdGlvbiI6InBvcnRyYWl0IiwiaWNvbnMiOlt7InNyYyI6Imh0dHBzOi8vaW1hZ2VzLnVuc3BsYXNoLmNvbS9waG90by0xNDU2NTkxMzA4MzA4L2l4bGliPXJiLTQuMC4zJmF1dG89Zm9ybWF0JmZpdD1jcm9wJnc9MTkyJmg9MTkyIiwic2l6ZXMiOiIxOTJ4MTkyIiwidHlwZSI6ImltYWdlL3BuZyJ9XX0=">
+    <meta name="theme-color" content="#2c3e50">
+    
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #34495e;
+            --success: #27ae60;
+            --warning: #f39c12;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 25px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        nav ul li a:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+
+        /* Install Button */
+        .install-btn {
+            background: var(--success);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .install-btn:hover {
+            background: #219653;
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(52, 73, 94, 0.8)), url('https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?ixlib=rb-4.0.3') center/cover;
+            color: white;
+            text-align: center;
+            padding: 5rem 0;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        .search-box {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+        }
+
+        .search-box button {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background: var(--secondary);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .search-box button:hover {
+            background: var(--primary);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            color: #7f8c8d;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Resource Categories */
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 5rem;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .card-header {
+            background: var(--primary);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .card-header i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .card-header h3 {
+            font-size: 1.5rem;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .card-body p {
+            margin-bottom: 1.5rem;
+            color: #7f8c8d;
+        }
+
+        .card-footer {
+            padding: 0 1.5rem 1.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--secondary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: var(--primary);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--secondary);
+            color: var(--secondary);
+        }
+
+        .btn-outline:hover {
+            background: var(--secondary);
+            color: white;
+        }
+
+        /* Document Grid */
+        .document-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .document-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .document-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .document-preview {
+            height: 180px;
+            background: var(--light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--secondary);
+        }
+
+        .document-info {
+            padding: 1.5rem;
+        }
+
+        .document-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .document-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .document-actions {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--accent);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--secondary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #95a5a6;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav ul {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            nav ul li {
+                margin: 5px 10px;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .categories {
+                grid-template-columns: 1fr;
+            }
+
+            .document-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--success);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .notification.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .notification i {
+            margin-right: 10px;
+        }
+
+        /* Install Banner */
+        .install-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--primary);
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .install-banner.show {
+            transform: translateY(0);
+        }
+
+        .install-banner-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .install-banner button {
+            background: var(--success);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .install-banner .dismiss-btn {
+            background: transparent;
+            color: white;
+            border: 1px solid white;
+            padding: 5px 10px;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-book-open"></i>
+                <span>Centre de Ressources</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#accueil">Accueil</a></li>
+                    <li><a href="#documents">Documents</a></li>
+                    <li><a href="#fiches">Fiches Publicitaires</a></li>
+                    <li><a href="#cv">Modèles CV</a></li>
+                    <li><a href="#bibliotheque">Bibliothèque</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><button id="installBtn" class="install-btn" style="display: none;"><i class="fas fa-download"></i> Installer</button></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Install Banner -->
+    <div id="installBanner" class="install-banner">
+        <div class="install-banner-content">
+            <i class="fas fa-mobile-alt" style="font-size: 1.5rem;"></i>
+            <div>
+                <strong>Installer Centre de Ressources</strong>
+                <p style="margin: 0; font-size: 0.9rem;">Accédez rapidement à vos ressources depuis votre écran d'accueil</p>
+            </div>
+        </div>
+        <div>
+            <button id="installBannerBtn">Installer</button>
+            <button id="dismissInstallBtn" class="dismiss-btn">Plus tard</button>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Bibliothèque de Ressources Professionnelles</h1>
+            <p>Accédez à notre collection complète de documents, fiches publicitaires, modèles de CV et livres pour enrichir votre connaissance et booster votre carrière.</p>
+            <div class="search-box">
+                <input type="text" placeholder="Rechercher des documents, livres, modèles...">
+                <button type="button"><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Resource Categories -->
+            <section class="section-title">
+                <h2>Nos Catégories de Ressources</h2>
+                <p>Explorez notre collection organisée pour trouver rapidement ce dont vous avez besoin</p>
+            </section>
+
+            <div class="categories">
+                <!-- Documents PDF -->
+                <div class="category-card">
+                    <div class="card-header">
+                        <i class="fas fa-file-pdf"></i>
+                        <h3>Documents PDF</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Accédez à notre collection complète de documents PDF importants pour votre travail et vos projets.</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="#documents" class="btn">Explorer</a>
+                    </div>
+                </div>
+
+                <!-- Fiches Publicitaires -->
+                <div class="category-card">
+                    <div class="card-header">
+                        <i class="fas fa-ad"></i>
+                        <h3>Fiches Publicitaires</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Découvrez nos fiches publicitaires créatives pour promouvoir vos produits et services efficacement.</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="#fiches" class="btn">Voir les fiches</a>
+                    </div>
+                </div>
+
+                <!-- Modèles CV -->
+                <div class="category-card">
+                    <div class="card-header">
+                        <i class="fas fa-file-alt"></i>
+                        <h3>Modèles CV</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Téléchargez des modèles de CV professionnels et modernes pour faire bonne impression lors de vos candidatures.</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="#cv" class="btn">Parcourir</a>
+                    </div>
+                </div>
+
+                <!-- Bibliothèque -->
+                <div class="category-card">
+                    <div class="card-header">
+                        <i class="fas fa-book"></i>
+                        <h3>Bibliothèque</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Plongez dans notre bibliothèque numérique avec des livres sur divers sujets pour enrichir vos connaissances.</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="#bibliotheque" class="btn">Lire maintenant</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Documents Section -->
+            <section id="documents" class="resource-section">
+                <div class="section-title">
+                    <h2>Documents PDF</h2>
+                    <p>Notre collection de documents importants et ressources professionnelles</p>
+                </div>
+
+                <div class="document-grid">
+                    <!-- Document 1 -->
+                    <div class="document-card">
+                        <div class="document-preview">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <div class="document-info">
+                            <h3 class="document-title">Guide Marketing Digital</h3>
+                            <div class="document-meta">
+                                <span><i class="far fa-calendar"></i> 15/05/2023</span>
+                                <span><i class="far fa-file"></i> 2.4 MB</span>
+                            </div>
+                            <div class="document-actions">
+                                <a href="#" class="btn btn-small">Télécharger</a>
+                                <a href="#" class="btn btn-outline btn-small">Aperçu</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Document 2 -->
+                    <div class="document-card">
+                        <div class="document-preview">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <div class="document-info">
+                            <h3 class="document-title">Rapport Annuel 2023</h3>
+                            <div class="document-meta">
+                                <span><i class="far fa-calendar"></i> 28/04/2023</span>
+                                <span><i class="far fa-file"></i> 5.1 MB</span>
+                            </div>
+                            <div class="document-actions">
+                                <a href="#" class="btn btn-small">Télécharger</a>
+                                <a href="#" class="btn btn-outline btn-small">Aperçu</a>
+                            </div>
+                        </div>
